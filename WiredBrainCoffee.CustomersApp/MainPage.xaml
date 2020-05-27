@@ -5,14 +5,15 @@
     xmlns:local="using:WiredBrainCoffee.CustomersApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:WiredBrainCoffee.CustomersApp.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:DesignWidth="600" d:DesignHeight="400">
 
-    <Grid x:Name="MainGrid">
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="ColumnDefinitionOne" Width="Auto" />
-            <ColumnDefinition x:Name="ColumnDefinitionTwo" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -52,17 +53,11 @@
                 </Button>
             </StackPanel>
 
-            <ListView Grid.Row="1">
-                <ListViewItem>Thomas</ListViewItem>
-                <ListViewItem>Julia</ListViewItem>
-                <ListViewItem>Anna</ListViewItem>
+            <ListView x:Name="CustomerListView" Grid.Row="1" DisplayMemberPath="FirstName"
+                      SelectionChanged="CustomerListView_OnSelectionChanged">
             </ListView>
         </Grid>
-
-        <StackPanel x:Name="FriendStackPanel" Grid.Row="1" Grid.Column="1">
-            <TextBox Header="FirstName" Margin="10" />
-            <TextBox Header="LastName" Margin="10" />
-            <CheckBox Content="Is Developer" Margin="10" />
-        </StackPanel>
+        
+        <controls:CustomerDetailControl x:Name="CustomerDetailControl" Grid.Row="1" Grid.Column="1" />
     </Grid>
 </Page>
