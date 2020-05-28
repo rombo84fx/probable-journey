@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using WiredBrainCoffee.CustomersApp.Model;
@@ -18,6 +19,7 @@ using WiredBrainCoffee.CustomersApp.Model;
 
 namespace WiredBrainCoffee.CustomersApp.Controls
 {
+    [ContentProperty(Name = nameof(Model.Customer))]
     public sealed partial class CustomerDetailControl : UserControl
     {
         private Customer _customer;

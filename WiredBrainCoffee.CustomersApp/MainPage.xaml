@@ -6,10 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:WiredBrainCoffee.CustomersApp.Controls"
+    xmlns:model="using:WiredBrainCoffee.CustomersApp.Model"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     d:DesignWidth="600" d:DesignHeight="400">
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -24,13 +24,17 @@
         <!-- Header -->
         <StackPanel Background="#F05A28" Orientation="Horizontal" Grid.ColumnSpan="3">
             <Image Source="Images/logo.png" Height="90" Margin="5" />
-            <TextBlock Text="Coffee Customers" FontSize="30" FontWeight="ExtraBold" Foreground="White"
+            <TextBlock Text="{StaticResource ApplicationTitle}" FontSize="30" FontWeight="ExtraBold" Foreground="White"
                        VerticalAlignment="Bottom" Margin="20" />
             <TextBlock Text="Version 1.0" Foreground="#333333" VerticalAlignment="Bottom" Margin="0 0 0 25" />
         </StackPanel>
 
+        <Button Content="Toggle theme" Grid.Row="0" Grid.ColumnSpan="3" Grid.Column="0" HorizontalAlignment="Right"
+                VerticalAlignment="Top" Margin="10" Click="ButtonToggleThem_OnClick" />
+
         <!-- Customer list -->
-        <Grid x:Name="CustomerListGrid" Grid.Row="1" Grid.Column="0" Background="#EEEEEE">
+        <Grid x:Name="CustomerListGrid" Grid.Row="1" Grid.Column="0"
+              Background="{ThemeResource CustomersListBackgroundBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
@@ -54,10 +58,9 @@
             </StackPanel>
 
             <ListView x:Name="CustomerListView" Grid.Row="1" DisplayMemberPath="FirstName"
-                      SelectionChanged="CustomerListView_OnSelectionChanged">
-            </ListView>
+                      SelectionChanged="CustomerListView_OnSelectionChanged" />
         </Grid>
-        
+
         <controls:CustomerDetailControl x:Name="CustomerDetailControl" Grid.Row="1" Grid.Column="1" />
     </Grid>
 </Page>
