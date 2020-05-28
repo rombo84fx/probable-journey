@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Store;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,51 +23,19 @@ namespace WiredBrainCoffee.CustomersApp.Controls
     [ContentProperty(Name = nameof(Model.Customer))]
     public sealed partial class CustomerDetailControl : UserControl
     {
-        private Customer _customer;
+        public static readonly DependencyProperty CustomerProperty = DependencyProperty.Register(
+            "Customer", typeof(Customer), typeof(CustomerDetailControl),
+            new PropertyMetadata(default(Customer)));
 
         public Customer Customer
         {
-            get { return _customer; }
-            set
-            {
-                _customer = value;
-                FirstNameTextBox.Text = _customer?.FirstName ?? string.Empty;
-                LastNameTextBox.Text = _customer?.LastName ?? string.Empty;
-                IsDeveloperCheckBox.IsChecked = _customer?.IsDeveloper;
-            }
+            get => (Customer)GetValue(CustomerProperty);
+            set => SetValue(CustomerProperty, value);
         }
 
         public CustomerDetailControl()
         {
             this.InitializeComponent();
-        }
-
-        private void FirstNameTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            UpdateCustomer();
-        }
-
-        private void LastNameTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            UpdateCustomer();
-        }
-
-        private void IsDeveloperCheckBox_OnChecked(object sender, RoutedEventArgs e)
-        {
-            UpdateCustomer();
-        }
-
-        private void IsDeveloperCheckBox_OnUnchecked(object sender, RoutedEventArgs e)
-        {
-            UpdateCustomer();
-        }
-
-        private void UpdateCustomer()
-        {
-            if (Customer == null) return;
-            Customer.FirstName = FirstNameTextBox.Text;
-            Customer.LastName = LastNameTextBox.Text;
-            Customer.IsDeveloper = IsDeveloperCheckBox.IsChecked.GetValueOrDefault();
         }
     }
 }

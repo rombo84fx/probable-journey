@@ -8,14 +8,12 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-
     <StackPanel>
-        <TextBox x:Name="FirstNameTextBox" Header="FirstName" Margin="10" 
-                 TextChanged="FirstNameTextBox_OnTextChanged" />
-        <TextBox x:Name="LastNameTextBox" Header="LastName" Margin="10" 
-                 TextChanged="LastNameTextBox_OnTextChanged" />
-        <CheckBox x:Name="IsDeveloperCheckBox" Content="Is Developer" Margin="10" 
-                  Checked="IsDeveloperCheckBox_OnChecked"
-                  Unchecked="IsDeveloperCheckBox_OnUnchecked"/>
+        <TextBox Header="FirstName" Margin="10" 
+                 Text="{x:Bind Customer.FirstName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Header="LastName" Margin="10"
+                 Text="{x:Bind Customer.LastName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+        <CheckBox Content="Is Developer" Margin="10"
+                  IsChecked="{x:Bind Customer.IsDeveloper,Mode=TwoWay}"/>
     </StackPanel>
 </UserControl>

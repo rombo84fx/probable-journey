@@ -1,0 +1,64 @@
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using WiredBrainCoffee.CustomersApp.Base;
+using WiredBrainCoffee.CustomersApp.DataProvider;
+using WiredBrainCoffee.CustomersApp.Model;
+
+namespace WiredBrainCoffee.CustomersApp.ViewModel
+{
+    public class MainViewModel : Observable
+    {
+        private readonly ICustomerDataProvider _customerDataProvider;
+
+        private Customer _selectedCustomer;
+
+        public MainViewModel(ICustomerDataProvider customerDataProvider)
+        {
+            _customerDataProvider = customerDataProvider;
+            Customers = new ObservableCollection<Customer>();
+        }
+
+        public ObservableCollection<Customer> Customers { get; set; }
+
+        public Customer SelectedCustomer
+        {
+            get => _selectedCustomer;
+            set
+            {
+                if (_selectedCustomer == value) return;
+                _selectedCustomer = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsCustomerSelected));
+            }
+        }
+
+        public bool IsCustomerSelected => SelectedCustomer != null;
+
+        public async Task LoadAsync()
+        {
+            Customers.Clear();
+            IEnumerable<Customer> customers = await _customerDataProvider.LoadCustomersAsync();
+            foreach (Customer customer in customers) Customers.Add(customer);
+        }
+
+        public async Task SaveAsync()
+        {
+            await _customerDataProvider.SaveCustomersAsync(Customers);
+        }
+
+        public void AddCustomer()
+        {
+            var customer = new Customer {FirstName = "New"};
+            Customers.Add(customer);
+            SelectedCustomer = customer;
+        }
+
+        public void DeleteCustomer()
+        {
+            if (SelectedCustomer == null) return;
+            Customers.Remove(SelectedCustomer);
+            SelectedCustomer = null;
+        }
+    }
+}

@@ -8,7 +8,7 @@ using WiredBrainCoffee.CustomersApp.Model;
 
 namespace WiredBrainCoffee.CustomersApp.DataProvider
 {
-    public class CustomerDataProvider
+    public class CustomerDataProvider : ICustomerDataProvider
     {
         private static readonly string _customersFileName = "customers.json";
         private static readonly StorageFolder LocalFolder = ApplicationData.Current.LocalFolder;
@@ -16,7 +16,7 @@ namespace WiredBrainCoffee.CustomersApp.DataProvider
         public async Task<IEnumerable<Customer>> LoadCustomersAsync()
         {
             var storageFile = await LocalFolder.TryGetItemAsync(_customersFileName) as StorageFile;
-            List<Customer> customerList = null;
+            List<Customer> customerList;
 
             if (storageFile == null)
                 customerList = new List<Customer>
