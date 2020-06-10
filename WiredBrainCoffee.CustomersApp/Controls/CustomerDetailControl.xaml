@@ -9,9 +9,9 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
     <StackPanel>
-        <TextBox Header="FirstName" Margin="10" 
+        <TextBox Header="FirstName"
                  Text="{x:Bind Customer.FirstName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-        <TextBox Header="LastName" Margin="10"
+        <TextBox Header="LastName"
                  Text="{x:Bind Customer.LastName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
         <CheckBox Content="Is Developer" Margin="10"
                   IsChecked="{x:Bind Customer.IsDeveloper,Mode=TwoWay}"/>
